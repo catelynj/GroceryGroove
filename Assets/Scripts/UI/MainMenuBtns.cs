@@ -1,14 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuBtns : MonoBehaviour
 {
+    private GameManager instance;
+
+    private void Start()
+    {
+        instance = GameManager.Instance;
+        
+    }
+
     public void PlayGame()
     {
-        UIController.Instance.LoadLevelSelect();
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void ExitGame()
     {
-        UIController.Instance.ExitGame();
+        Application.Quit();
     }
 }

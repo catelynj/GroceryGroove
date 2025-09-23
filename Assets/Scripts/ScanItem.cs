@@ -92,7 +92,7 @@ public class ScanItem : MonoBehaviour
         timer += Time.deltaTime;
 
         // check if Time.deltatime is on a beat -- tempo is 120 BPM, one beat is every .5 seconds
-        if (Mathf.Abs(timer % beatInterval) < 0.05) // 0.05 seconds to allow for a little leeway of what is on beat
+        if (Mathf.Abs(timer % beatInterval) < 0.1) // for a little leeway of what is on beat, 0.1 is our tolerance
         {
             canScan = true;
         }
@@ -107,12 +107,15 @@ public class ScanItem : MonoBehaviour
         if (canScan)
         {
             Debug.Log("scanned on beat +10");
+            GameManager.Instance.score += 10;
         }
         else if (!canScan)
         {
             Debug.Log("scanned off beat -5");
+            GameManager.Instance.score -= 5;
         }
 
+        GameManager.Instance.scoreText.text = "Score: " + GameManager.Instance.score;
         Destroy(collision.gameObject);
     }
 }
