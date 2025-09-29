@@ -51,7 +51,7 @@ public class Level1Btns : MonoBehaviour
             paused = true;
         }
 
-        Debug.Log("Paused: " + paused);
+        //Debug.Log("Paused: " + paused);
     }
 
     public void ExitLevel()
