@@ -17,7 +17,7 @@ public class Swipe : MonoBehaviour
     private void Awake()
     {
         // make sure there's only one swipe controller -- realistically this check shouldnt be needed because the swipe controller is on the GameManager object but just in case :)
-        Swipe[] controller = FindObjectsOfType<Swipe>();
+        Swipe[] controller = FindObjectsByType<Swipe>(FindObjectsSortMode.None);
         if(controller.Length > 1)
             Destroy(gameObject);
 
