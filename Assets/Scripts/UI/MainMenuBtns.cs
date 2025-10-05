@@ -15,7 +15,7 @@ public class MainMenuBtns : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("LevelSelect");
+        SceneManager.LoadScene("Dialogue");
     }
 
     public void ExitGame()

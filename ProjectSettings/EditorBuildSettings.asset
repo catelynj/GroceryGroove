@@ -12,9 +12,13 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: b3ebf2c098a45414d9588567bf8cb903
   - enabled: 1
+    path: Assets/Scenes/Dialogue.unity
+    guid: 99529ec0169cc6745967db6dcf55c425
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 1540242c7646ab94a87855af35e4427c
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: fa5aedc440cc05b46bb0ebf75760a801
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

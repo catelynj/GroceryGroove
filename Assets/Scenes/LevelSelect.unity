@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -612,6 +613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 374350113}
   - component: {fileID: 374350114}
+  - component: {fileID: 374350115}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -650,7 +652,24 @@ MonoBehaviour:
   levelOneMusic: {fileID: 0}
   score: 0
   scoreText: {fileID: 0}
+  streak: 0
+  streakText: {fileID: 0}
+  mood: 0
+  moodSlider: {fileID: 0}
   difficulty: 0
+  timer: 0
+--- !u!114 &374350115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374350112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c958f233ae41516478c38dceb98793f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Swipe
 --- !u!1 &423019313
 GameObject:
   m_ObjectHideFlags: 0
