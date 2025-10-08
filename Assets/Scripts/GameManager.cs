@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
             streakText = GameObject.Find("txtStreak")?.GetComponent<TMPro.TMP_Text>();
             moodSlider = GameObject.Find("MoodBar")?.GetComponent<Slider>();
             started = false;
+            score = 0;
         }
     }
 }
