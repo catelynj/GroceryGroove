@@ -39,6 +39,7 @@ public class ScanItem : MonoBehaviour
         {
             GameManager.Instance.streak = 0;
             GameManager.Instance.moodSlider.value -= 5;
+            GameManager.Instance.mood -= 5;
             GameManager.Instance.score -= 25;
 
             if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)

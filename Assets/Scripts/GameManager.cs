@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Data;
+using SQLite;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +43,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        Database.InitializeDatabase(); // call InitializeDatabase from Database.cs
     }
 
     private void Start()
@@ -70,6 +75,13 @@ public class GameManager : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
+
+        if (mood == 90)
+        {
+            levelOneMusic.Stop();
+            Database.SaveData(score, difficulty);
+            SceneManager.LoadScene("EndScreen");
+        }
     }
 
     public void PauseMusic()
@@ -94,7 +106,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Persistence Fixes
+    // persistence fixes
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
