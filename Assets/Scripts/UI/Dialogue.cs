@@ -25,12 +25,6 @@ public class Dialogue : MonoBehaviour
         clerkSprite.transform.SetAsFirstSibling();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     void StartDialogue()
     {
         index = 0;
@@ -44,6 +38,11 @@ public class Dialogue : MonoBehaviour
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+
+        //consider moving sprite changes to the coroutine to make the logic easier 
+        //bool isTalking = true means make it dark and behind, false means reset to original and move to front etc. etc. 
+        
+        // also consider adding the character noises to this coroutine
     }
 
     public void NextDialogueLine()
@@ -55,13 +54,10 @@ public class Dialogue : MonoBehaviour
             StartCoroutine(TypeDialogueLine());
 
 
-            //temporary solution for demo purposes -- will rework sprite modification later when more dialogue and art is added!
-
+            //temporary solution for demo purposes -- will rework sprite modification later when more dialogue and art is added
             bossSprite.color = new Color(0.3056f,0.2739f,0.2739f, 0.5f); // darker and behind clerk
             bossSprite.transform.SetAsFirstSibling();
             clerkSprite.color = new Color(0.16078f, 0.4880f, 0.6745f, 1f); // reset to original
-
-
         }
         else
         {
