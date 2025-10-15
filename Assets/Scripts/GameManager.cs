@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +14,15 @@ public class GameManager : MonoBehaviour
 
     public int score;
     public TMPro.TMP_Text scoreText;
+    public int streak;
+    public TMPro.TMP_Text streakText;
+
+    public int mood;
+    public Slider moodSlider;
 
     public int difficulty = 0; // 0 = default 1 = hard
+
+    public float timer;
 
     public static GameManager Instance
     {
@@ -38,10 +46,16 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         difficulty = 0;
+        streak = 0;
+        mood = 100;
+        timer = 0f;
+
+        //get swipe script
+        Swipe swipe = FindAnyObjectByType<Swipe>();
     }
 
     private void Update()
-    {     
+    {
         if (!started && itemMov != null && levelOneMusic != null)
         {
             if (Input.touchCount > 0) // wait for first touch to start music and movement
@@ -50,6 +64,11 @@ public class GameManager : MonoBehaviour
                 levelOneMusic.Play();
                 itemMov.started = true;
             }
+        }
+
+        if (started)
+        {
+            timer += Time.deltaTime;
         }
     }
 
@@ -72,5 +91,31 @@ public class GameManager : MonoBehaviour
     public int GetDifficulty()
     {
         return difficulty;
+    }
+
+
+    // Persistence Fixes
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Level1")
+        {
+            itemMov = FindAnyObjectByType<ItemMovement>();
+            levelOneMusic = GameObject.Find("LevelMusic")?.GetComponent<AudioSource>();
+            scoreText = GameObject.Find("txtScore")?.GetComponent<TMPro.TMP_Text>();
+            streakText = GameObject.Find("txtStreak")?.GetComponent<TMPro.TMP_Text>();
+            moodSlider = GameObject.Find("MoodBar")?.GetComponent<Slider>();
+            started = false;
+            score = 0;
+        }
     }
 }

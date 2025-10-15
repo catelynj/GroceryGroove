@@ -4,83 +4,8 @@ using UnityEngine;
 
 public class ScanItem : MonoBehaviour
 {
-
-    //hey so literally all of this commented code is irrelvant now that i changed how the game is going to play...yay
-
-    /**
-    [SerializeField]
-    private string itemType;
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.CompareTag("Bag"))
-        {
-            switch (itemType)
-            {
-                case "Food":
-                    if( other.gameObject.name.Contains("Food"))
-                    {
-                        Debug.Log("Correct Bag! Score +50");
-                        GameManager.Instance.score += 50;
-                        Destroy(gameObject);
-                    }
-                    else
-                    {
-                        Debug.Log("Wrong Bag! Score -20");
-                        GameManager.Instance.score -= 20;
-                        Destroy(gameObject);
-                    }
-                    break;
-                case "Fragile":
-                    if(other.gameObject.name.Contains("Fragile"))
-                    {
-                        Debug.Log("Correct Bag! Score +50");
-                        GameManager.Instance.score += 50;
-                        Destroy(gameObject);
-                    }
-                    else
-                    {
-                        Debug.Log("Wrong Bag! Score -20");
-                        GameManager.Instance.score -= 20;
-                        Destroy(gameObject);
-                    }
-                    break;
-                case "Cleaning":
-                    if(other.gameObject.name.Contains("Cleaning"))
-                    {
-                        Debug.Log("Correct Bag! Score +50");
-                        GameManager.Instance.score += 50;
-                        Destroy(gameObject);
-                    }
-                    else
-                    {
-                        Debug.Log("Wrong Bag! Score -20");
-                        GameManager.Instance.score -= 20;
-                        Destroy(gameObject);
-                    }
-                    break;
-                case "Junk":
-                    if(other.gameObject.name.Contains("Junk"))
-                    {
-                        Debug.Log("Correct Bag! Score +50");
-                        GameManager.Instance.score += 50;
-                        Destroy(gameObject);
-                    }
-                    else
-                    {
-                        Debug.Log("Wrong Bag! Score -20");
-                        GameManager.Instance.score -= 20;
-                        Destroy(gameObject);
-                    }
-                    break;
-            }
-        }
-    }
-    **/
-
     private bool canScan;
     private float beatInterval = 0.5f;
-    private float timer = 0f;
 
     private void Start()
     {
@@ -89,10 +14,8 @@ public class ScanItem : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
-
         // check if Time.deltatime is on a beat -- tempo is 120 BPM, one beat is every .5 seconds
-        if (Mathf.Abs(timer % beatInterval) < 0.1) // for a little leeway of what is on beat, 0.1 is our tolerance
+        if (Mathf.Abs(GameManager.Instance.timer % beatInterval) < 0.1) // for a little leeway of what is on beat
         {
             canScan = true;
         }
@@ -102,20 +25,39 @@ public class ScanItem : MonoBehaviour
         }
     }
 
+
+    //TODO: make sure that only notes that are touched count for score, not just every note because sometimes a note is incidentally on beat 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (canScan)
         {
-            Debug.Log("scanned on beat +10");
-            GameManager.Instance.score += 10;
+            GameManager.Instance.score += 100;
+            GameManager.Instance.streak += 1;
         }
         else if (!canScan)
         {
-            Debug.Log("scanned off beat -5");
-            GameManager.Instance.score -= 5;
+            GameManager.Instance.streak = 0;
+            GameManager.Instance.moodSlider.value -= 5;
+            GameManager.Instance.score -= 25;
+
+            if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
+            {
+                // change color and sprite of handle to yellow
+            }
+            else if(GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value > 0)
+            {
+                // change color and sprite of handle to red
+            }
+            else if(GameManager.Instance.moodSlider.value <= 0)
+            {
+                //GAME OVER
+                Debug.Log("game over");
+            }
         }
 
         GameManager.Instance.scoreText.text = "Score: " + GameManager.Instance.score;
+        GameManager.Instance.streakText.text = "Streak: " + GameManager.Instance.streak;
         Destroy(collision.gameObject);
     }
 }
