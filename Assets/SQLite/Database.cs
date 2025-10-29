@@ -24,12 +24,13 @@ public class Database
         }
     }
 
-    public static void SaveData(int score, int difficulty)
+    public static void SaveData(string name, int score, int difficulty)
     {
         using (var connection = new SQLiteConnection(dbPath))
         {
             var gameInfo = new GameInfo
-            {
+            {   
+                Name = name,
                 Score = score,
                 Difficulty = difficulty,
                 Timestamp = System.DateTime.UtcNow.ToString("o")
@@ -37,4 +38,13 @@ public class Database
             connection.Insert(gameInfo);
         }
     }
+
+    //public static GameInfo[] GetTopScores()
+    //{
+    //    using (var connection = new SQLiteConnection(dbPath))
+    //    {
+    //        // order by descending score, take top 3 (only Name and Score), add them to an array and return it
+            
+    //    }
+    //}
 }

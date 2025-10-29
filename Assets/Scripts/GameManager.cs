@@ -76,12 +76,6 @@ public class GameManager : MonoBehaviour
             timer += Time.deltaTime;
         }
 
-        if (mood == 90)
-        {
-            levelOneMusic.Stop();
-            Database.SaveData(score, difficulty);
-            SceneManager.LoadScene("EndScreen");
-        }
     }
 
     public void PauseMusic()

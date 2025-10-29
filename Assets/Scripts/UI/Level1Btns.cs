@@ -34,23 +34,21 @@ public class Level1Btns : MonoBehaviour
         }
     }
 
-    public void TogglePauseMenu()
+    public void PauseGame()
     {
-        if (paused == true)
-        {
-            PausePanel.SetActive(false);
-            Time.timeScale = 1f; //unpause game
-            instance.UnpauseMusic();
-            paused = false;
-        }
-        else
-        {
-            PausePanel.SetActive(true);
-            Time.timeScale = 0f; //pause game
-            instance.PauseMusic();
-            paused = true;
-        }
+        PausePanel.SetActive(true);
+        Time.timeScale = 0f; //pause game
+        instance.PauseMusic();
+        paused = true;
 
+    }
+
+    public void ResumeGame()
+    {
+        PausePanel.SetActive(false);
+        Time.timeScale = 1f; //unpause game
+        instance.UnpauseMusic();
+        paused = false;
     }
 
     public void ExitLevel()

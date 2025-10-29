@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScanItem : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class ScanItem : MonoBehaviour
             else if(GameManager.Instance.moodSlider.value <= 0)
             {
                 //GAME OVER
-                Debug.Log("game over");
+                SceneManager.LoadScene("GameLose");
             }
         }
 

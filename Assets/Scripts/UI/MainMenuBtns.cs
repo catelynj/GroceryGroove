@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class MainMenuBtns : MonoBehaviour
 {
     private GameManager instance;
+    public GameObject leaderboardPanel;
+    
 
     private void Start()
     {
         instance = GameManager.Instance;
-        
+        leaderboardPanel.SetActive(false);
     }
 
     public void PlayGame()
@@ -21,5 +23,15 @@ public class MainMenuBtns : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void ShowLeaderboardPanel()
+    {
+        leaderboardPanel.SetActive(true);
+    }
+
+    public void HideLeaderboardPanel()
+    {
+        leaderboardPanel.SetActive(false);
     }
 }
