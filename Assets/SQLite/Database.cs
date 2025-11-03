@@ -39,12 +39,13 @@ public class Database
         }
     }
 
-    //public static GameInfo[] GetTopScores()
-    //{
-    //    using (var connection = new SQLiteConnection(dbPath))
-    //    {
-    //        // order by descending score, take top 3 (only Name and Score), add them to an array and return it
-            
-    //    }
-    //}
+    public static GameInfo[] GetTopScores()
+    {
+        using (var connection = new SQLiteConnection(dbPath))
+        {
+            return connection.Query<GameInfo>(
+                "SELECT Name, Score FROM GameInfo ORDER BY Score DESC LIMIT 3"
+            ).ToArray();
+        }
+    }
 }

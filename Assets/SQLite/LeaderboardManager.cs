@@ -13,16 +13,25 @@ public class LeaderboardManager : MonoBehaviour
     void Start()
     {
         // grab top 3 highest scores from database and add them to the leaderboardEntries array
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var top3 = Database.GetTopScores();
+        PopulateLeaderboard(top3);
     }
 
     private void PopulateLeaderboard(GameInfo[] entries)
     {
+        for (int i = 0; i < leaderboardEntries.Length; i++)
+        {
+            if (i < entries.Length)
+            {
+                var entry = entries[i];
+                var entryText = leaderboardEntries[i].GetComponent<TMPro.TMP_Text>();
+                entryText.text = $"{i + 1}. {entry.Name} - {entry.Score}";
+            }
+            else
+            {
+                var entryText = leaderboardEntries[i].GetComponent<TMPro.TMP_Text>();
+                entryText.text = $"{i + 1}. ---";
+            }
+        }
     }
 }

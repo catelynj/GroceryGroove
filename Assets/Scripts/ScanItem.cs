@@ -26,22 +26,15 @@ public class ScanItem : MonoBehaviour
         }
     }
 
-
-    //TODO: make sure that only notes that are touched count for score, not just every note because sometimes a note is incidentally on beat 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (canScan)
         {
-            GameManager.Instance.score += 100;
-            GameManager.Instance.streak += 1;
+            GameManager.Instance.GoodScan();
         }
         else if (!canScan)
         {
-            GameManager.Instance.streak = 0;
-            GameManager.Instance.moodSlider.value -= 5;
-            GameManager.Instance.mood -= 5;
-            GameManager.Instance.score -= 25;
+            GameManager.Instance.BadScan();
 
             if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
             {

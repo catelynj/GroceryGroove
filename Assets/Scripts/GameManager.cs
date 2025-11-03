@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public int mood;
     public Slider moodSlider;
+    private float finalMood;
 
     public int difficulty = 0; // 0 = default 1 = hard
 
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
         if (started)
         {
             timer += Time.deltaTime;
+            CheckWin();
         }
 
     }
@@ -100,6 +102,30 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void GoodScan()
+    {
+        streak += 1;
+        if(streak > 0)
+        {
+            score += 100 + (streak * 50); // add bonus score for streak
+        }
+        else
+        {
+            score += 100; // base score
+        }
+    }
+
+    public void BadScan()
+    {
+        streak = 0;
+        moodSlider.value -= 5;
+        mood -= 5;
+    }
+
+
+    // hard mode -> decrease mood twice as much, increase item speed or something similar
+
+
     // persistence fixes
     private void OnEnable()
     {
@@ -123,5 +149,17 @@ public class GameManager : MonoBehaviour
             started = false;
             score = 0;
         }
+    }
+
+    // Game Win Condition
+    private void CheckWin()
+    {
+        //if song has finished playing
+        if(levelOneMusic.time == 140.748) // length of level one music 
+        {
+            finalMood = moodSlider.value; // save this so we can pass it to the SaveData function on win screen
+            SceneManager.LoadScene("GameWin");
+        }
+
     }
 }
