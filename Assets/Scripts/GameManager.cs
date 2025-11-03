@@ -22,11 +22,12 @@ public class GameManager : MonoBehaviour
 
     public int mood;
     public Slider moodSlider;
-    private float finalMood;
+    public float finalMood;
 
     public int difficulty = 0; // 0 = default 1 = hard
 
     public float timer;
+    private float elapsedTime;
 
     public static GameManager Instance
     {
@@ -75,9 +76,10 @@ public class GameManager : MonoBehaviour
         if (started)
         {
             timer += Time.deltaTime;
-            CheckWin();
-        }
+            elapsedTime += levelOneMusic.isPlaying ? Time.deltaTime : 0f;
 
+        }
+        CheckWin();
     }
 
     public void PauseMusic()
@@ -155,7 +157,7 @@ public class GameManager : MonoBehaviour
     private void CheckWin()
     {
         //if song has finished playing
-        if(levelOneMusic.time == 140.748) // length of level one music 
+        if(elapsedTime >= 140f) // length of level one music 
         {
             finalMood = moodSlider.value; // save this so we can pass it to the SaveData function on win screen
             SceneManager.LoadScene("GameWin");

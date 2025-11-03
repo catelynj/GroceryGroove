@@ -45,10 +45,11 @@ public class GameWinScreen : MonoBehaviour
         string name = firstLetter.text + secondLetter.text + thirdLetter.text;
         int score = GameManager.Instance.score;
         int difficulty = GameManager.Instance.difficulty;
+        float mood = GameManager.Instance.finalMood;
         scoreSubmitted = true;
 
         // submit score to DB
-        Database.SaveData(name, score, difficulty);
+        Database.SaveData(name, score, mood, difficulty);
     }
 
     public void CycleFirstLetter()
