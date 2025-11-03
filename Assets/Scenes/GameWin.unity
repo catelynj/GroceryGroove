@@ -1281,6 +1281,7 @@ MonoBehaviour:
   btnBot_1: {fileID: 1131946696}
   btnBot_2: {fileID: 1273064612}
   btnBot_3: {fileID: 489898070}
+  scoreText: {fileID: 588979191}
   btnSubmit: {fileID: 551340826}
 --- !u!1 &730584576
 GameObject:
@@ -1319,6 +1320,7 @@ MonoBehaviour:
   streakText: {fileID: 0}
   mood: 0
   moodSlider: {fileID: 0}
+  finalMood: 0
   difficulty: 0
   timer: 0
 --- !u!4 &730584579

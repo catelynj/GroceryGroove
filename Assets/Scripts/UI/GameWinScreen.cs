@@ -15,6 +15,8 @@ public class GameWinScreen : MonoBehaviour
     public Button btnBot_2;
     public Button btnBot_3;
 
+    public TMPro.TMP_Text scoreText;
+
     private bool scoreSubmitted = false;
     public Button btnSubmit;   
 
@@ -23,6 +25,7 @@ public class GameWinScreen : MonoBehaviour
     {
         scoreSubmitted = false;
         btnSubmit.interactable = true;
+        scoreText.text = "Score: " + GameManager.Instance.score.ToString();
     }
 
     // Update is called once per frame
