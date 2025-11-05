@@ -12,6 +12,8 @@ public class Dialogue : MonoBehaviour
     private int index;
     public Image clerkSprite;
     public Image bossSprite;
+    public Button btnNextLine;
+    private bool isTyping = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,10 +21,10 @@ public class Dialogue : MonoBehaviour
         dialogueText.text = string.Empty;
         StartDialogue();
 
-        //clerkSprite.color = new Color(0.16078f, 0.4880f, 0.6745f, 1f); original color
-        //bossSprite.color = new Color(0.6754f,0.16185f,0.16185f, 1f); orignial color
-        clerkSprite.color = new Color(0.2279f, 0.2532f, 0.2679f, 0.5f);
+        clerkSprite.color = new Color(1f, 1f, 1f, 0.5f);
         clerkSprite.transform.SetAsFirstSibling();
+
+        btnNextLine.enabled = false;
     }
 
     void StartDialogue()
@@ -33,16 +35,14 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeDialogueLine()
     {
-        foreach(char c in dialogueLines[index].ToCharArray())
+        foreach (char c in dialogueLines[index].ToCharArray())
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
 
-        //consider moving sprite changes to the coroutine to make the logic easier 
-        //bool isTalking = true means make it dark and behind, false means reset to original and move to front etc. etc. 
-        
-        // also consider adding the character noises to this coroutine
+        isTyping = false;
+        btnNextLine.enabled = true;
     }
 
     public void NextDialogueLine()
@@ -53,11 +53,11 @@ public class Dialogue : MonoBehaviour
             dialogueText.text = string.Empty;
             StartCoroutine(TypeDialogueLine());
 
+            bossSprite.color = new Color(1f,1f,1f, 0.5f); // boss half opacity 
+            bossSprite.transform.SetAsFirstSibling();     // boss moves to back
+            clerkSprite.color = new Color(1, 1, 1, 1f); // reset clerk to original
 
-            //temporary solution for demo purposes -- will rework sprite modification later when more dialogue and art is added
-            bossSprite.color = new Color(0.3056f,0.2739f,0.2739f, 0.5f); // darker and behind clerk
-            bossSprite.transform.SetAsFirstSibling();
-            clerkSprite.color = new Color(0.16078f, 0.4880f, 0.6745f, 1f); // reset to original
+            isTyping = true;
         }
         else
         {
