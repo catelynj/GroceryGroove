@@ -55,6 +55,7 @@ public class GameWinScreen : MonoBehaviour
         Database.SaveData(name, score, mood, difficulty);
     }
 
+    // TODO: include this feature as part of the security aspect!!
     public void CycleFirstLetter()
     {
         btnTop_1.onClick.RemoveAllListeners();

@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
 
         }
         CheckWin();
+
+        if(levelOneMusic == null)
+        {
+            levelOneMusic.enabled = false;
+        }
     }
 
     public void PauseMusic()

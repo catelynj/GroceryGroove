@@ -47,6 +47,7 @@ public class ScanItem : MonoBehaviour
             else if(GameManager.Instance.moodSlider.value <= 0)
             {
                 //GAME OVER
+                GameManager.Instance.levelOneMusic.Stop();
                 SceneManager.LoadScene("GameLose");
             }
         }
