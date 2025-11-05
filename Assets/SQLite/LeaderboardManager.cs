@@ -2,6 +2,15 @@ using System;
 using System.Linq;
 using UnityEngine;
 
+/**
+ * LeaderboardManager.cs 
+ * Author: Catelyn Jones
+ * 
+ * Purpose:
+ * Fetches and displays leaderboard information on Main Menu scene
+ * 
+ * */
+
 public class LeaderboardManager : MonoBehaviour
 {
     // add leaderboard entries from Database to UI panel

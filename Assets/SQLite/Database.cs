@@ -2,6 +2,18 @@ using UnityEngine;
 using SQLite;
 using System.IO;
 
+/**
+ * Database.cs 
+ * Author: Catelyn Jones
+ * 
+ * Purpose:
+ * SQLite Database Handler
+ * Creates DB and GameInfo table
+ * Retrieves Top 3 Scores for use in LeaderboardManager.cs
+ * Referenced in GameManager.cs, LeaderboardManager.cs, & GameWinScreen.cs
+ * 
+ * */
+
 public class Database
 {
     private static string dbName = "GG_DB.db";

@@ -7,28 +7,45 @@ using System.Data;
 using SQLite;
 using System.IO;
 
+/**
+ * GameManager.cs 
+ * Author: Catelyn Jones
+ * 
+ * Purpose:
+ * Core Game Logic Manager
+ * Handles score, mood, difficulty, timing, win condition, etc.
+ * Referenced in multiple scripts
+ * 
+ * */
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _Instance = null;
     public ItemMovement itemMov;
 
-    private bool started = false;
-    public AudioSource levelOneMusic;
-
+    // UI
     public int score;
     public TMPro.TMP_Text scoreText;
     public int streak;
     public TMPro.TMP_Text streakText;
-
+    // Mood Bar
     public int mood;
     public Slider moodSlider;
     public float finalMood;
 
     public int difficulty = 0; // 0 = default 1 = hard
 
+    // Beat & Music
+    private bool started = false;
+    public AudioSource levelOneMusic;
     public float timer;
     private float elapsedTime;
 
+    // Persistence
+    public bool levelOver = false;
+
+
+    #region Singleton Pattern
     public static GameManager Instance
     {
         get
@@ -48,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         Database.InitializeDatabase(); // call InitializeDatabase from Database.cs
     }
-
+    #endregion
     private void Start()
     {
         score = 0;
@@ -63,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // this is problematic and causing issues with null reference exceptions on other scenes after the first level has been played through
         if (!started && itemMov != null && levelOneMusic != null)
         {
             if (Input.touchCount > 0) // wait for first touch to start music and movement
@@ -76,17 +94,26 @@ public class GameManager : MonoBehaviour
         if (started)
         {
             timer += Time.deltaTime;
-            elapsedTime += levelOneMusic.isPlaying ? Time.deltaTime : 0f;
+            elapsedTime += levelOneMusic.isPlaying ? Time.deltaTime : 0f; // keep track of elapsed time of music for CheckWin()
 
         }
         CheckWin();
-
-        if(levelOneMusic == null)
-        {
-            levelOneMusic.enabled = false;
-        }
     }
 
+    // Game Win Condition
+    private void CheckWin()
+    {
+        //if song has finished playing
+        if (elapsedTime >= 140f) // length of level one music 
+        {
+            finalMood = moodSlider.value; // save this so we can pass it to the SaveData function on win screen
+            SceneManager.LoadScene("GameWin");
+            levelOver = true;
+        }
+
+    }
+
+    #region Music Controls
     public void PauseMusic()
     {
         if(levelOneMusic != null)
@@ -97,7 +124,9 @@ public class GameManager : MonoBehaviour
         if (levelOneMusic != null)
             levelOneMusic.UnPause();
     }
+    #endregion
 
+    #region Difficulty Controls
     public void SetDifficulty(int sliderValue)
     {
         difficulty = sliderValue;
@@ -108,7 +137,10 @@ public class GameManager : MonoBehaviour
         return difficulty;
     }
 
+    // hard mode -> decrease mood twice as much, increase item speed or something similar
+    #endregion
 
+    #region Scanning Functions
     public void GoodScan()
     {
         streak += 1;
@@ -128,12 +160,9 @@ public class GameManager : MonoBehaviour
         moodSlider.value -= 5;
         mood -= 5;
     }
+    #endregion
 
-
-    // hard mode -> decrease mood twice as much, increase item speed or something similar
-
-
-    // persistence fixes
+    #region Persistence Fixes
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -157,16 +186,5 @@ public class GameManager : MonoBehaviour
             score = 0;
         }
     }
-
-    // Game Win Condition
-    private void CheckWin()
-    {
-        //if song has finished playing
-        if(elapsedTime >= 140f) // length of level one music 
-        {
-            finalMood = moodSlider.value; // save this so we can pass it to the SaveData function on win screen
-            SceneManager.LoadScene("GameWin");
-        }
-
-    }
+    #endregion
 }

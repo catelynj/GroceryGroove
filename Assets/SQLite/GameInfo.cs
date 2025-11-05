@@ -1,6 +1,14 @@
 using UnityEngine;
 using SQLite;
 
+/**
+ * GameInfo.cs 
+ * Author: Catelyn Jones
+ * Purpose:
+ * Getters & Setters for SQLite database table 'GameInfo'
+ * Referenced in Database.cs
+ * 
+ * */
 public class GameInfo
 {
     [PrimaryKey, AutoIncrement]

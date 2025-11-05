@@ -2,6 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/**
+ * GameWinScreen.cs 
+ * Author: Catelyn Jones
+ * 
+ * Purpose:
+ * handles final score and name submission to DB
+ * 
+ * */
+
 public class GameWinScreen : MonoBehaviour
 {
     public TMPro.TMP_Text firstLetter;

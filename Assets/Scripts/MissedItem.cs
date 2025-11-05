@@ -1,5 +1,14 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+
+/**
+ * MissedItem.cs 
+ * Author: Catelyn Jones
+ * 
+ * Purpose:
+ * Handles missed items in Level 1 scene
+ * Calls BadScan from GM.cs and destroys missed items
+ * 
+ * */
 
 public class MissedItem : MonoBehaviour
 {
@@ -18,5 +27,6 @@ public class MissedItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameManager.Instance.BadScan();
+        Destroy(collision.gameObject);
     }
 }
