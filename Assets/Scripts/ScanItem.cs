@@ -52,8 +52,8 @@ public class ScanItem : MonoBehaviour
         else if (GameManager.Instance.moodSlider.value <= 0)
         {
             //GAME OVER
-            GameManager.Instance.levelOneMusic.enabled = false;
-            SceneManager.LoadScene("GameLose");
+           GameManager.Instance.levelOneMusic.enabled = false;
+           SceneManager.LoadScene("GameLose");
         }
         GameManager.Instance.scoreText.text = "Score: " + GameManager.Instance.score;
         GameManager.Instance.streakText.text = "Streak: " + GameManager.Instance.streak;
