@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 /**
  * LeaderboardManager.cs 
@@ -16,17 +17,21 @@ public class LeaderboardManager : MonoBehaviour
     // add leaderboard entries from Database to UI panel
 
     [SerializeField]
-    private GameObject[] leaderboardEntries;
+    private TMPro.TMP_Text[] leaderboardEntries;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        leaderboardEntries = GetComponentsInChildren<TMPro.TMP_Text>();
+
         // grab top 3 highest scores from database and add them to the leaderboardEntries array
         var top3 = Database.GetTopScores();
+        Debug.Log(top3.ToString());
         PopulateLeaderboard(top3);
+        Debug.Log("Leaderboard: " + top3.ToString());
     }
 
-    private void PopulateLeaderboard(GameInfo[] entries)
+    public void PopulateLeaderboard(GameInfo[] entries)
     {
         for (int i = 0; i < leaderboardEntries.Length; i++)
         {

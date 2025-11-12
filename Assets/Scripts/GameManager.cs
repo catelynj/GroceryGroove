@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     // Persistence
     public bool levelOver = false;
+    private bool dbInit = false;
+    private bool sceneReady = false;
 
 
     #region Singleton Pattern
@@ -62,8 +64,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-
-        Database.InitializeDatabase(); // call InitializeDatabase from Database.cs
     }
     #endregion
     private void Start()
@@ -76,11 +76,26 @@ public class GameManager : MonoBehaviour
 
         //get swipe script
         Swipe swipe = FindAnyObjectByType<Swipe>();
+
+
+        if (!dbInit)
+        {
+            Database.InitializeDatabase();
+            Debug.Log("Init DB Called");
+            dbInit = true;
+            Debug.Log(dbInit);
+        }
+        else if (dbInit)
+        {
+            return;
+        }
     }
 
     private void Update()
     {
-        // this is problematic and causing issues with null reference exceptions on other scenes after the first level has been played through
+
+        if (!sceneReady) return; // skip until scene objects are assigned
+
         if (!started && itemMov != null && levelOneMusic != null)
         {
             if (Input.touchCount > 0) // wait for first touch to start music and movement
@@ -157,8 +172,8 @@ public class GameManager : MonoBehaviour
     public void BadScan()
     {
         streak = 0;
-        moodSlider.value -= 5;
-        mood -= 5;
+        moodSlider.value -= 1;
+        mood -= 1;
     }
     #endregion
 
@@ -175,6 +190,8 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        sceneReady = false;
+
         if (scene.name == "Level1")
         {
             itemMov = FindAnyObjectByType<ItemMovement>();
@@ -182,9 +199,34 @@ public class GameManager : MonoBehaviour
             scoreText = GameObject.Find("txtScore")?.GetComponent<TMPro.TMP_Text>();
             streakText = GameObject.Find("txtStreak")?.GetComponent<TMPro.TMP_Text>();
             moodSlider = GameObject.Find("MoodBar")?.GetComponent<Slider>();
+
             started = false;
             score = 0;
+            elapsedTime = 0f;
+            levelOver = false;
+
+            sceneReady = true;
+        }
+        else
+        {
+            itemMov = null;
+            levelOneMusic = null;
+            scoreText = null;
+            streakText = null;
+            moodSlider = null;
+        }
+
+
+        if (scene.name == "MainMenu")
+        {
+            score = 0;
+            streak = 0;
+            mood = 100;
+            timer = 0f;
+            started = false;
+            elapsedTime = 0f;
         }
     }
+
     #endregion
 }

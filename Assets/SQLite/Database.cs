@@ -49,6 +49,7 @@ public class Database
                 Timestamp = System.DateTime.UtcNow.ToString("o")
             };
             connection.Insert(gameInfo);
+            connection.Close();
         }
     }
 
@@ -56,9 +57,9 @@ public class Database
     {
         using (var connection = new SQLiteConnection(dbPath))
         {
-            return connection.Query<GameInfo>(
-                "SELECT Name, Score FROM GameInfo ORDER BY Score DESC LIMIT 3"
-            ).ToArray();
+            var results = connection.Query<GameInfo>("SELECT Name, Score FROM GameInfo ORDER BY Score DESC LIMIT 3");
+            Debug.Log(results);
+            return results.ToArray();
         }
     }
 }

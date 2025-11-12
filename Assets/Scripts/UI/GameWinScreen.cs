@@ -54,14 +54,20 @@ public class GameWinScreen : MonoBehaviour
 
     public void SubmitScore()
     {
+        
         string name = firstLetter.text + secondLetter.text + thirdLetter.text;
         int score = GameManager.Instance.score;
         int difficulty = GameManager.Instance.difficulty;
         float mood = GameManager.Instance.finalMood;
         scoreSubmitted = true;
 
-        // submit score to DB
-        Database.SaveData(name, score, mood, difficulty);
+
+
+        if(score > 0 && name != null)
+        {
+            // submit score to DB
+            Database.SaveData(name, score, mood, difficulty);
+        }
     }
 
     // TODO: include this feature as part of the security aspect!!
