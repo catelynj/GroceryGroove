@@ -26,13 +26,13 @@ public class GameWinScreen : MonoBehaviour
 
     public TMPro.TMP_Text scoreText;
 
-    private bool scoreSubmitted = false;
+    private bool _scoreSubmitted = false;
     public Button btnSubmit;   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        scoreSubmitted = false;
+        _scoreSubmitted = false;
         btnSubmit.interactable = true;
         scoreText.text = "Score: " + GameManager.Instance.score.ToString();
     }
@@ -40,7 +40,7 @@ public class GameWinScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (scoreSubmitted)
+        if (_scoreSubmitted)
         {
             btnSubmit.interactable = false;
         }
@@ -59,7 +59,7 @@ public class GameWinScreen : MonoBehaviour
         int score = GameManager.Instance.score;
         int difficulty = GameManager.Instance.difficulty;
         float mood = GameManager.Instance.finalMood;
-        scoreSubmitted = true;
+        _scoreSubmitted = true;
 
 
 

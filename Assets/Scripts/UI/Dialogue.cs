@@ -9,11 +9,11 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public string[] dialogueLines;
     public float textSpeed = 0.03f;
-    private int index;
+    private int _index;
     public Image clerkSprite;
     public Image bossSprite;
     public Button btnNextLine;
-    private bool isTyping = true;
+    private bool _isTyping = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,27 +29,27 @@ public class Dialogue : MonoBehaviour
 
     void StartDialogue()
     {
-        index = 0;
+        _index = 0;
         StartCoroutine(TypeDialogueLine());
     }
 
     IEnumerator TypeDialogueLine()
     {
-        foreach (char c in dialogueLines[index].ToCharArray())
+        foreach (char c in dialogueLines[_index].ToCharArray())
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
 
-        isTyping = false;
+        _isTyping = false;
         btnNextLine.enabled = true;
     }
 
     public void NextDialogueLine()
     {
-        if(index < dialogueLines.Length - 1)
+        if(_index < dialogueLines.Length - 1)
         {
-            index++;
+            _index++;
             dialogueText.text = string.Empty;
             StartCoroutine(TypeDialogueLine());
 
@@ -57,7 +57,7 @@ public class Dialogue : MonoBehaviour
             bossSprite.transform.SetAsFirstSibling();     // boss moves to back
             clerkSprite.color = new Color(1, 1, 1, 1f); // reset clerk to original
 
-            isTyping = true;
+            _isTyping = true;
         }
         else
         {

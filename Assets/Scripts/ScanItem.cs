@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
  * Purpose:
  * Handles item scanning logic
  * Keeps track of what is on and off beat, calls GoodScan/BadScan from GameManager.cs accordingly
- * Changes mood bar color/sprite based on value
+ * Changes mood bar color/sprite based on value (not implemented yet)
  * Controls game over condition
  * 
  * Not referenced in any scripts as of 11/5
@@ -20,24 +20,24 @@ using UnityEngine.SceneManagement;
 
 public class ScanItem : MonoBehaviour
 {
-    private bool canScan;
-    private float beatInterval = 0.5f;
+    private bool _canScan;
+    private float _beatInterval = 0.5f;
 
     private void Start()
     {
-        canScan = false;
+        _canScan = false;
     }
 
     private void Update()
     {
         // check if Time.deltatime is on a beat -- tempo is 120 BPM, one beat is every .5 seconds
-        if (Mathf.Abs(GameManager.Instance.timer % beatInterval) < 0.1) // for a little leeway of what is on beat
+        if (Mathf.Abs(GameManager.Instance.timer % _beatInterval) < 0.4) // for a little leeway of what is on beat
         {
-            canScan = true;
+            _canScan = true;
         }
         else
         {
-            canScan = false;
+            _canScan = false;
         }
 
 
@@ -51,21 +51,21 @@ public class ScanItem : MonoBehaviour
         }
         else if (GameManager.Instance.moodSlider.value <= 0)
         {
-            //GAME OVER
            GameManager.Instance.levelOneMusic.enabled = false;
            SceneManager.LoadScene("GameLose");
         }
+
         GameManager.Instance.scoreText.text = "Score: " + GameManager.Instance.score;
         GameManager.Instance.streakText.text = "Streak: " + GameManager.Instance.streak;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (canScan)
+        if (_canScan)
         {
             GameManager.Instance.GoodScan();
         }
-        else if (!canScan)
+        else if (!_canScan)
         {
             GameManager.Instance.BadScan();
         }

@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuBtns : MonoBehaviour
 {
-    private GameManager instance;
+    private GameManager _instance;
     public GameObject leaderboardPanel;
     
 
     private void Start()
     {
-        instance = GameManager.Instance;
+        _instance = GameManager.Instance;
         leaderboardPanel.SetActive(false);
     }
 

@@ -16,13 +16,13 @@ using System.IO;
 
 public class Database
 {
-    private static string dbName = "GG_DB.db";
-    private static string dbPath;
+    private static string _dbName = "GG_DB.db";
+    private static string _dbPath;
 
     static Database()
     {
         #if UNITY_EDITOR
-            dbPath = Path.Combine(Application.dataPath, dbName);
+            _dbPath = Path.Combine(Application.dataPath, _dbName);
         #elif UNITY_IOS
             dbPath = Path.Combine(Application.persistentDataPath, dbName);
         #endif  
@@ -30,7 +30,7 @@ public class Database
 
     public static void InitializeDatabase()
     {
-        using (var connection = new SQLiteConnection(dbPath))
+        using (var connection = new SQLiteConnection(_dbPath))
         {
             connection.CreateTable<GameInfo>();
         }
@@ -38,7 +38,7 @@ public class Database
 
     public static void SaveData(string name, int score, float mood, int difficulty)
     {
-        using (var connection = new SQLiteConnection(dbPath))
+        using (var connection = new SQLiteConnection(_dbPath))
         {
             var gameInfo = new GameInfo
             {   
@@ -55,7 +55,7 @@ public class Database
 
     public static GameInfo[] GetTopScores()
     {
-        using (var connection = new SQLiteConnection(dbPath))
+        using (var connection = new SQLiteConnection(_dbPath))
         {
             var results = connection.Query<GameInfo>("SELECT Name, Score FROM GameInfo ORDER BY Score DESC LIMIT 3");
             Debug.Log(results);

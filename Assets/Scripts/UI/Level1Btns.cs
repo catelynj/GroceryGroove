@@ -7,11 +7,11 @@ public class Level1Btns : MonoBehaviour
 {
     public GameObject PausePanel;
     public bool paused = false;
-    private GameManager instance;
+    private GameManager _instance;
     public TMPro.TMP_Text hardMode;
 
     [SerializeField]
-    private int difficulty;
+    private int _difficulty;
 
     private void Start()
     {
@@ -20,11 +20,11 @@ public class Level1Btns : MonoBehaviour
             PausePanel.SetActive(false);
         }
 
-        instance = GameManager.Instance;
+        _instance = GameManager.Instance;
 
-        difficulty = GameManager.Instance.GetDifficulty();
+        _difficulty = GameManager.Instance.GetDifficulty();
 
-        if(difficulty == 1)
+        if(_difficulty == 1)
         {
             hardMode.text = "!!HARD MODE!!";
         }
@@ -38,19 +38,17 @@ public class Level1Btns : MonoBehaviour
     {
         PausePanel.SetActive(true);
         Time.timeScale = 0f; //pause game
-        instance.PauseMusic();
+        _instance.PauseMusic();
         paused = true;
-
     }
 
     public void ResumeGame()
     {
         PausePanel.SetActive(false);
         Time.timeScale = 1f; //unpause game
-        instance.UnpauseMusic();
+        _instance.UnpauseMusic();
         paused = false;
     }
-
     public void ExitLevel()
     {
         Time.timeScale = 1f;

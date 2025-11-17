@@ -6,7 +6,7 @@ public class ItemMovement : MonoBehaviour
 {
     public float tempo;
     public bool started;
-    private bool isPaused = false; // 9/19/25 - Claude AI Fix: when the item is being dragged, pause left to right scrolling movement 
+    private bool _isPaused = false;
 
     void Start()
     {
@@ -17,27 +17,22 @@ public class ItemMovement : MonoBehaviour
     {
         if (!started)
         {
-            //moved functionality to gamemanager
-
-            //if(Input.touchCount > 0) // wait for first touch to start music and movement
-            //{
-            //    started = true;
-            //}
+            //  start item movement with first touch -- moved to GameManager.cs
         }
-        else if (!isPaused)
+        else if (!_isPaused)
         {
             transform.position -= new Vector3(0f, tempo * Time.deltaTime, 0f); // move items downwards to tempo
         }
     }
 
-    // 9/19/25 - Claude AI Fix: Added methods to pause and resume movement
+    // 9/19/25 - Claude AI Fix (referenced in Swipe.cs) -- Added methods to pause and resume downwards movement
     public void PauseMovement()
     {
-        isPaused = true;
+        _isPaused = true;
     }
 
     public void ResumeMovement()
     {
-        isPaused = false;
+        _isPaused = false;
     }
 }

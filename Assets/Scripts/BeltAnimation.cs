@@ -1,30 +1,21 @@
 using UnityEngine;
 
-/**
- * beltAnimation.cs 
- * Author: Catelyn Jones
- * 
- * Purpose:
- * Iterate through belt sprite sheet to create animation effect
- * 
- * */
-
 public class BeltAnimation : MonoBehaviour
 {
     [SerializeField]
-    private Sprite[] beltSprites;
-    private SpriteRenderer spriteRenderer;
+    private Sprite[] _beltSprites;
+    private SpriteRenderer _spriteRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        spriteRenderer.sprite = beltSprites[Time.frameCount / 50 % beltSprites.Length];
+        _spriteRenderer.sprite = _beltSprites[Time.frameCount / 50 % _beltSprites.Length];
     }
 }

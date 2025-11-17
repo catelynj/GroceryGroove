@@ -11,12 +11,14 @@ public class Swipe : MonoBehaviour
     private Draggable _lastDragged;
 
     // 9/19/25 - Claude AI Fix: Added reference to ItemMovement to pause and resume movement when dragging
-    // when the item positions are being updated in ItemMovement.cs, the touch controls have trouble keeping up so Claude suggested pausing the movement of the items when touch control starts
+    // When the item positions were being updated in ItemMovement.cs, the touch controls had trouble keeping up and my fixes were not working, so I used Claude AI to help me debug the issue.
+    // It suggested pausing the movement of the items when touch control starts and that way the item position updates aren't conflicting with each other.
+
     private ItemMovement _itemMovement;
 
     private void Awake()
     {
-        // make sure there's only one swipe controller -- realistically this check shouldnt be needed because the swipe controller is on the GameManager object but just in case :)
+        // make sure there's only one swipe controller -- realistically this check shouldnt be needed because the swipe controller is on the GameManager object but just in case
         Swipe[] controller = FindObjectsByType<Swipe>(FindObjectsSortMode.None);
         if(controller.Length > 1)
             Destroy(gameObject);
@@ -29,23 +31,24 @@ public class Swipe : MonoBehaviour
             Drop(); 
             return;
         }
-        if (Input.touchCount > 0) // touchy codey
+
+        if (Input.touchCount > 0)
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) // prevents item movement when touching UI elements
                 return;
             _startTouchPosition = Input.GetTouch(0).position;
         }
-        else // no touchy no codey
+        else
             return;
 
         _worldPosition = Camera.main.ScreenToWorldPoint(_startTouchPosition); 
         _worldPosition.z = 0; // on touch the object gets moved to like -4000 z so set it back to 0 to fix that
 
-        if (_isDragActive)
+        if (_isDragActive) // if dragging, continue
         {
             Drag();
         }
-        else
+        else // if not currently dragging, start dragging
         {
             RaycastHit2D hit = Physics2D.Raycast(_worldPosition, Vector2.zero);
             if(hit.collider != null)
@@ -57,31 +60,26 @@ public class Swipe : MonoBehaviour
                     _itemMovement = hit.transform.GetComponent<ItemMovement>();
                     if (_itemMovement != null)
                     {
-                        _itemMovement.PauseMovement();
+                        _itemMovement.PauseMovement(); // pause downward movement from ItemMovement while the item is being dragged
                     }
-                    InitDrag(); // drag that thing around twin
+                    _isDragActive = true;
                 }
             }
         }
     }
 
-    void InitDrag()
-    {
-        _isDragActive = true;
-    }
-
     void Drag()
     {
         if(_lastDragged != null)
-        _lastDragged.transform.position = new Vector3(_worldPosition.x, _worldPosition.y, 0f); // move!! that!! bus!!!
+        _lastDragged.transform.position = new Vector3(_worldPosition.x, _worldPosition.y, 0f);
     }
     
     void Drop()
     {
-        _isDragActive = false; // stop!! that!! bus!!!
+        _isDragActive = false;
         if (_itemMovement != null)
         {
-            _itemMovement.ResumeMovement();
+            _itemMovement.ResumeMovement(); // resume downward movement from ItemMovement after item is dropped
             _itemMovement = null;
         }
     }
