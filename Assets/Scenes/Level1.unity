@@ -1912,7 +1912,7 @@ MonoBehaviour:
   PausePanel: {fileID: 569478127}
   paused: 0
   hardMode: {fileID: 868849578}
-  difficulty: 0
+  _difficulty: 0
 --- !u!4 &354520583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2339646892588757266, guid: aa105e1abf37b994a9e149d817733b3f, type: 3}
@@ -9826,7 +9826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10aa019d52201c346827375b131e9673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeltAnimation
-  beltSprites:
+  _beltSprites:
   - {fileID: -6771482941915710753, guid: a960663a694eea940a4f13e98cdf2ef4, type: 3}
   - {fileID: -359016558506663296, guid: a960663a694eea940a4f13e98cdf2ef4, type: 3}
   - {fileID: 448724516084868706, guid: a960663a694eea940a4f13e98cdf2ef4, type: 3}

@@ -123,12 +123,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameWin");
             levelOver = true;
         }
-        else if( difficulty == 1 && _elapsedTime >= 105f) // hard mode
-        {
-            finalMood = moodSlider.value;
-            SceneManager.LoadScene("GameWin");
-            levelOver = true;
-        }
+        //else if( difficulty == 1 && _elapsedTime >= 105f) // hard mode
+        //{
+        //    finalMood = moodSlider.value;
+        //    SceneManager.LoadScene("GameWin");
+        //    levelOver = true;
+        //}
 
     }
 
