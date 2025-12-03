@@ -13,6 +13,10 @@ public class Level1Btns : MonoBehaviour
     [SerializeField]
     private int _difficulty;
 
+
+    [SerializeField]
+    private Sprite[] _moodBarSprite;
+
     private void Start()
     {
         if (PausePanel != null)
@@ -31,6 +35,26 @@ public class Level1Btns : MonoBehaviour
         else
         {
             hardMode.text = "";
+        }
+
+        // reset mood bar 
+        GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(22f, 195f, 0f, 255f);
+        GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[0];
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
+        {
+            // change color and sprite of handle to yellow
+            GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f,136f,0f,255f);
+            GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[1];
+        }
+        else if (GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value > 0)
+        {
+            // change color and sprite of handle to red
+            GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 12f, 0, 255f);
+            GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[2];
         }
     }
 

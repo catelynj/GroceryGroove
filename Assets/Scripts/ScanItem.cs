@@ -17,7 +17,6 @@ using UnityEngine.SceneManagement;
  * Not referenced in any scripts as of 11/5
  * 
  * */
-
 public class ScanItem : MonoBehaviour
 {
     private bool _canScan;
@@ -40,16 +39,8 @@ public class ScanItem : MonoBehaviour
             _canScan = false;
         }
 
-
-        if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
-        {
-            // change color and sprite of handle to yellow
-        }
-        else if (GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value > 0)
-        {
-            // change color and sprite of handle to red
-        }
-        else if (GameManager.Instance.moodSlider.value <= 0)
+        
+        if (GameManager.Instance.moodSlider.value <= 0)
         {
            GameManager.Instance.levelOneMusic.enabled = false;
            SceneManager.LoadScene("GameLose");
