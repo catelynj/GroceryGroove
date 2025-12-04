@@ -24,9 +24,7 @@ public class LeaderboardManager : MonoBehaviour
 
         // grab top 3 highest scores from database
         var top3 = Database.GetTopScores();
-        //Debug.Log(top3.ToString());
         PopulateLeaderboard(top3);
-        //Debug.Log("Leaderboard: " + top3.ToString());
     }
 
     public void PopulateLeaderboard(GameInfo[] entries)
