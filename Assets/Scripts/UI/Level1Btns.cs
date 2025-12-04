@@ -37,24 +37,37 @@ public class Level1Btns : MonoBehaviour
             hardMode.text = "";
         }
 
-        // reset mood bar 
-        GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(22f, 195f, 0f, 255f);
-        GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[0];
+        ChangeMoodBarColor("default");
     }
 
     private void Update()
     {
         if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
         {
-            // change color and sprite of handle to yellow
-            GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f,136f,0f,255f);
-            GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[1];
+            ChangeMoodBarColor("orange");
         }
         else if (GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value > 0)
         {
-            // change color and sprite of handle to red
-            GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 12f, 0, 255f);
-            GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[2];
+            ChangeMoodBarColor("red");
+        }
+    }
+
+    public void ChangeMoodBarColor(string color)
+    {
+        switch (color)
+        {
+            case "orange":
+                GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 136f, 0f, 255f);
+                GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[1];
+                break;
+            case "red":
+                GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 12f, 0, 255f);
+                GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[2];
+                break;
+            default:
+                GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 255f, 0f, 255f);
+                GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[0];
+                break;
         }
     }
 
