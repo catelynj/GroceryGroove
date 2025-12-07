@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
  * Purpose:
  * Handles item scanning logic
  * Keeps track of what is on and off beat, calls GoodScan/BadScan from GameManager.cs accordingly
- * Changes mood bar color/sprite based on value (not implemented yet)
  * Controls game over condition
  * 
  * Not referenced in any scripts as of 11/5
