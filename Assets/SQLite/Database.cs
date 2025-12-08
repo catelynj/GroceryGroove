@@ -24,7 +24,7 @@ public class Database
         #if UNITY_EDITOR
             _dbPath = Path.Combine(Application.dataPath, _dbName);
         #elif UNITY_IOS
-            dbPath = Path.Combine(Application.persistentDataPath, dbName);
+            _dbPath = Path.Combine(Application.persistentDataPath, _dbName);
         #endif  
     }
 
