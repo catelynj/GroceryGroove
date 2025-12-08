@@ -42,11 +42,11 @@ public class Level1Btns : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 35)
+        if (GameManager.Instance.moodSlider.value > 10 && GameManager.Instance.moodSlider.value < 50)
         {
             ChangeMoodBarColor("orange");
         }
-        else if (GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value > 0)
+        else if (GameManager.Instance.moodSlider.value <= 10 && GameManager.Instance.moodSlider.value >= 0)
         {
             ChangeMoodBarColor("red");
         }
@@ -61,7 +61,7 @@ public class Level1Btns : MonoBehaviour
                 GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[1];
                 break;
             case "red":
-                GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 12f, 0, 255f);
+                GameManager.Instance.moodSlider.fillRect.GetComponent<UnityEngine.UI.Image>().color = new Color(255f, 0f, 0, 255f);
                 GameManager.Instance.moodSlider.handleRect.GetComponent<UnityEngine.UI.Image>().sprite = _moodBarSprite[2];
                 break;
             default:

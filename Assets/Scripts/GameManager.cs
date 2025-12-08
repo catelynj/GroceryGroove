@@ -187,14 +187,14 @@ public class GameManager : MonoBehaviour
         if(difficulty == 1)
         {
             streak = 0;
-            moodSlider.value -= 5;
-            mood -= 5;
+            moodSlider.value -= 6;
+            mood -= 6;
         }
         else
         {
             streak = 0;
-            moodSlider.value -= 2;
-            mood -= 2;
+            moodSlider.value -= 3;
+            mood -= 3;
         }
     }
     #endregion
